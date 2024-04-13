@@ -1,0 +1,6 @@
+ul {
+  column-count: 2; /*to show 2 list item in unordered list */
+  column-gap: 2rem;
+  list-style: none;
+}
+

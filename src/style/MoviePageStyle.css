@@ -1,0 +1,48 @@
+.parent-div-container{
+  height: 100%;
+  width: 100%;
+}
+.movie-container {
+  height: 10%;
+  width: 100%;
+  display: flex; /*flex is used to move all child elements from left to right*/
+
+}
+
+/*first child of movie-container */
+.leftThing {
+  width: 30%;  /* this style will stretch 30 percent to its parent */
+}
+
+/*second child of movie-container*/
+.rightThing {
+  width: 70%;  /* this style will stretch 70 percent to its parent after first child(30%) */
+  color: white;
+}
+
+.parent-size { /* this style will stretch to its parent */
+  width: 100%;
+  height: 100%;
+}
+
+.span-container {
+  height: 10%;
+  width: 100%;
+  display: flex;
+
+}
+
+.span-content{
+  width: 30%;
+  margin-left: 50px;
+}
+
+
+.span-right{
+  width: 33%;
+}
+
+.span-center{
+margin-left: 20px;
+  width: 33%;
+}
