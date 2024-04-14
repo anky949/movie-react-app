@@ -8,10 +8,10 @@ import {useDispatch} from "react-redux";
 export const CustomDropDown = ({label, filterName, dropDownKeyValues,searchFilter}) => {
   let selectedValueUI=<option key={searchFilter[filterName]}>{searchFilter[filterName]}</option>
   const dropDownListUI = dropDownKeyValues.map(dropDownKeyValue => {
-    if (dropDownKeyValue.key !== searchFilter[filterName]) {
+    if (dropDownKeyValue.id !== searchFilter[filterName]) {
 
-      return <option key={dropDownKeyValue.key}
-                     value={dropDownKeyValue.key}>{dropDownKeyValue.value}</option>
+      return <option id={dropDownKeyValue.id}
+                     value={dropDownKeyValue.id}>{dropDownKeyValue.name}</option>
     }
     }
   )

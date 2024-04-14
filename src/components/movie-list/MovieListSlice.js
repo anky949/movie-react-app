@@ -9,6 +9,13 @@ export const fetchMovies = createAsyncThunk("",
        const pipeSeparatedGenres=filter.genres.join("|");
         queryParams+="&with_genres="+pipeSeparatedGenres;
       }
+      if(filter.keyword !== null){
+        queryParams+="&with_keywords="+filter.keyword.id;
+      }
+
+      if(filter.releaseYear !== null){
+        queryParams+="&primary_release_year="+filter.releaseYear;
+      }
       console.log("calling API");
       const response = await http.get(BASE_SERVICE_URL+"discover/movie?"+queryParams);
       const apiResponse = await response;
@@ -19,7 +26,7 @@ export const initialState={
   isLoading: false,
   error: null,
   totalCount: null,
-  searchFilter:{include_adult:false,include_video:false,currentPage:1,language:"en-US",sort_by:"popularity.desc",genres:[]}
+  searchFilter:{include_adult:false,include_video:false,currentPage:1,language:"en-US",sort_by:"popularity.desc",genres:[],keyword : null,releaseYear : null}
 }
 
 export const movieListSlice=createSlice({
@@ -28,7 +35,7 @@ export const movieListSlice=createSlice({
   reducers : {
     // In each reducer method, action parameter is used to get data as payload which will be passed while calling the method
     updateFilters:(state,action)=>{
-      console.log("reducer updated filter"+action.payload.genres);
+      console.log("reducer updated filter"+action.payload.keyword);
       return {...state,searchFilter: action.payload}
     }
   },

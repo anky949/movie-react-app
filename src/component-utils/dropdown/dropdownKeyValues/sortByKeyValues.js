@@ -1,19 +1,19 @@
 export const sortByKeyValues = [
 
   {
-    key: "popularity.desc",
-    value: "popularity.desc"
+    id: "popularity.desc",
+    name: "popularity.desc"
   },
   {
-    key: "popularity.asc",
-    value: "popularity.asc"
+    id: "popularity.asc",
+    name: "popularity.asc"
   },
   {
-    key: "title.asc",
-    value: "title.asc"
+    id: "title.asc",
+    name: "title.asc"
   },
   {
-    key: "title.desc",
-    value: "title.desc"
+    id: "title.desc",
+    name: "title.desc"
   }
 ]

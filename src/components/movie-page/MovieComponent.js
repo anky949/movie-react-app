@@ -5,7 +5,6 @@ import {BASE_SERVICE_URL, IMAGE_URL} from "../../constants/url";
 import "../../style/MoviePageStyle.css"
 import {getMintuesToHours} from "../../utils/TimeUtils";
 
-
 export const MovieComponent = () => {
   const {id} = useParams();
   const [movie, setMovie] = useState();
@@ -22,11 +21,11 @@ export const MovieComponent = () => {
   const backgroundMovieCss = {
     backgroundImage: "url(" + IMAGE_URL + "w500/" + movie.backdrop_path
         + ")",
-    backgroundRepeat : "no-repeat",
+    backgroundRepeat: "no-repeat",
     backgroundSize: "cover"
   };
 
-  const userRating =movie.vote_average/10*100+"%";
+  const userRating = movie.vote_average / 10 * 100 + "%";
 
   return (
       <div className="parent-div-container">
@@ -34,23 +33,24 @@ export const MovieComponent = () => {
           <div className="leftThing"><img className="parent-size"
                                           src={IMAGE_URL + "w300/"
                                               + movie.poster_path}/></div>
-          <div className="rightThing" style={backgroundMovieCss} >
+          <div className="rightThing" style={backgroundMovieCss}>
             <h1>{movie.original_title + '(' + movie.release_date + ')'}</h1>
             <div className="span-container">
                <span className="span-content"> Genre : {
                  movie.genres.map(
-                   genre => genre.name).join(",")}</span>
+                     genre => genre.name).join(",")}</span>
               <span className="span-content">
-                Released Date : { movie.release_date}
+                Released Date : {movie.release_date}
               </span>
               <span className="span-content">
-                Duration : { getMintuesToHours(movie.runtime)}
+                Duration : {getMintuesToHours(movie.runtime)}
               </span>
             </div>
             <div className="span-container">
               <span className="span-center">
                 User Score
-<div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+<div className="progress" role="progressbar" aria-label="Basic example"
+     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
   <div className="progress-bar" style={{width: userRating}}>{userRating}</div>
 </div>                </span>
             </div>
@@ -59,6 +59,16 @@ export const MovieComponent = () => {
                 <p><b>Overview</b></p>  {movie.overview}
                </span>
             </div>
+            <div className="span-container">
+<span className="span-content"> Production Companies : {
+  movie.production_companies.map(
+      company => company.name).join(",")}</span>
+              <span className="span-content">
+                Production Country : {movie.production_countries.map(
+                  country => country.name).join(",")}
+              </span></div>
+
+
           </div>
         </div>
 

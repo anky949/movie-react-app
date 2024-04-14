@@ -1,6 +1,13 @@
 import {BASE_SERVICE_URL, IMAGE_URL} from "../../constants/url";
 import "../../style/MovieListPageStyle.css"
-import {Button, Card} from "react-bootstrap";
+import {
+  Button,
+  Card, Col,
+  FormControl,
+  FormGroup,
+  FormLabel,
+  Row
+} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {CustomDropDown} from "../../component-utils/dropdown/singledropdown/CustomDropdown";
 import {
@@ -14,11 +21,11 @@ import {
   CustomMultiCheckBox,
   multiCheckBox
 } from "../../component-utils/multicheckbox/CustomMultiCheckBox";
-import {
-  genresKeyValues
-} from "../../component-utils/dropdown/dropdownKeyValues/genresKeyValues";
+
 import {useEffect, useState} from "react";
 import {http} from "../../constants/securityconstants";
+import {SearchFilterDropdown} from "../../component-utils/SearchFilterDropdown";
+
 
 export const ImageGridComponent = ({
     movies,searchFilter,onFilterUpdate,totalCount
@@ -27,6 +34,7 @@ export const ImageGridComponent = ({
   console.log("ImageGridComponent totalCount : " + totalCount);
   const updatedFilter = {...searchFilter}
   const [genres,setGenres] = useState([]);
+  const [releaseYear,setReleaseYear] = useState(searchFilter.releaseYear);
 
   useEffect(() => {
    http.get(BASE_SERVICE_URL+"genre/movie/list")
@@ -54,6 +62,7 @@ export const ImageGridComponent = ({
   const onSearchButtonClick=(e)=> {
     e.preventDefault();
     console.log("onSearchButtonClick updateFilter"+updatedFilter.sort_by);
+    updatedFilter.releaseYear=releaseYear;
     updatedFilter.currentPage=1;
     dispatch(updateFilters(updatedFilter));
   }
@@ -69,6 +78,20 @@ export const ImageGridComponent = ({
                             />
             <CustomMultiCheckBox filterName={"genres"} label={"Genres"}
                                  checkboxKeyValues={genres} searchFilter={updatedFilter}/>
+            <FormLabel></FormLabel>
+            <FormGroup as={Row} className="mb-3" controlId="formPlaintextEmail">
+            <FormLabel column sm="6">Search By keyword</FormLabel>
+            <Col sm="6">
+              <SearchFilterDropdown label={"search keyword"} filterName={"keyword"} searchFilter={updatedFilter}/>
+            </Col>
+          </FormGroup>
+            <FormLabel></FormLabel>
+            <FormGroup as={Row} className="mb-3" controlId="formPlaintextEmail">
+              <FormLabel column sm="4">Release Year</FormLabel>
+              <Col sm="8">
+              <FormControl type={"text"} key={"releaseYear"} onChange={(e)=>setReleaseYear(e.target.value)} value={releaseYear}/>
+              </Col>
+            </FormGroup>
             <Button variant="primary" type="submit" onClick={e=>onSearchButtonClick(e)}>
               Search
             </Button>

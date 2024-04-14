@@ -33,5 +33,7 @@
 
 .form-border {
   border: 1px solid black; /* add a border */
+  display: block;
+  margin-top: 30px
 }
 
