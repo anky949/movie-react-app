@@ -6,3 +6,11 @@ export const range = (start, end) => {
   */
   return Array.from({ length }, (_, idx) => idx + start);
 };
+
+export const formatAmount=(amount)=> {
+  if (amount >= 1000000) {
+    return (amount / 1000000).toFixed(2) + 'M';
+  } else {
+    return amount.toString();
+  }
+}

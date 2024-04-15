@@ -39,10 +39,12 @@ Please follow steps to use tailwindcss -: https://medium.com/@shivaydv/a-step-by
 
 
     <div className="App">
-      <div className="div-items">
-        <span className="span-cont">TTN-MDB</span>
-          <span className="span-content-right">username : {user.username}</span>
-      </div>
+      <nav className="flex items-center justify-between bg-[#020d4b]">
+        <h2 class="text-2xl font-bold text-gray-200">TTN-MDB</h2>
+        <div className="auth flex items-center">
+          <button className="rounded bg-gray-900 px-3 py-2 text-gray-200 hover:bg-gray-800 hover:text-gray-100">{user.username}</button>
+        </div>
+      </nav>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MovieListComponent/>}  />
