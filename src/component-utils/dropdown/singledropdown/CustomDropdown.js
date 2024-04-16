@@ -1,8 +1,7 @@
 import {Col, Dropdown, Row} from "react-bootstrap";
 import "../../../style/DropDownStyles.css"
 import Form from 'react-bootstrap/Form';
-import {updateFilters} from "../../../components/movie-list/MovieListSlice";
-import {useDispatch} from "react-redux";
+
 
 
 export const CustomDropDown = ({label, filterName, dropDownKeyValues,searchFilter}) => {
@@ -22,6 +21,7 @@ export const CustomDropDown = ({label, filterName, dropDownKeyValues,searchFilte
         </Form.Label>
         <Col sm="8">
       <Form.Select aria-label="Default select example" onChange={e=>{
+        console.log("selected value ===> "+e.target.value);
         searchFilter[filterName]=e.target.value;
        // dispatch(updateFilters(filter));
       }}>

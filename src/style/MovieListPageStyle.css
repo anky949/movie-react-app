@@ -10,6 +10,7 @@
 
 .movie-list-container{
   width: 70%;
+  height: 80%;
 
 }
 .grid-container {
@@ -25,10 +26,8 @@
 }
 
 .pagination-bar {
-  display: flex;
-  justify-content: right;
-  width: 70%;
-
+  position: relative;
+  width: 100%;
 }
 
 .form-border {

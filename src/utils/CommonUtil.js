@@ -14,3 +14,15 @@ export const formatAmount=(amount)=> {
     return amount.toString();
   }
 }
+
+export const getLast50Years =()=> {
+  const currentYear = new Date().getFullYear();
+  const years = [];
+
+  for (let i = 0; i < 50; i++) {
+    const year =currentYear - i;
+    years.push({id : year , name : year});
+  }
+
+  return years;
+}

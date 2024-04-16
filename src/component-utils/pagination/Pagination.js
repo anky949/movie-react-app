@@ -10,7 +10,7 @@ import {
  const Pagination = props => {
   const {
     totalCount,
-    siblingCount = 5,
+    siblingCount = 1,
     searchFilter,
     pageSize,
     className
@@ -30,7 +30,7 @@ import {
   const DOTS = "...";
   // If there are less than 2 times in pagination range we shall not render the component
   if ( searchFilter.currentPage === 0 || paginationRange.length < 2) {
-    return "not found";
+    return "";
   }
 
   const onNext = () => {

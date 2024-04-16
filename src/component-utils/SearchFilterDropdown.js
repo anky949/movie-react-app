@@ -13,10 +13,8 @@ export const SearchFilterDropdown = ({label,searchFilter,filterName})=>{
 
 
   const handleSearchChange = (e) => {
-    if(e.target.value.length > 2) {
       http.get(BASE_SERVICE_URL + "search/keyword?page=1&query="+e.target.value)
       .then(response => setCustomOptions(response.data.results));
-    }
     setSearchTerm(e.target.value);
   };
 

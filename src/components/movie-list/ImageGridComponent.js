@@ -25,6 +25,7 @@ import {
 import {useEffect, useState} from "react";
 import {http} from "../../constants/securityconstants";
 import {SearchFilterDropdown} from "../../component-utils/SearchFilterDropdown";
+import {getLast50Years} from "../../utils/CommonUtil";
 
 
 export const ImageGridComponent = ({
@@ -34,12 +35,12 @@ export const ImageGridComponent = ({
   console.log("ImageGridComponent totalCount : " + totalCount);
   const updatedFilter = {...searchFilter}
   const [genres,setGenres] = useState([]);
-  const [releaseYear,setReleaseYear] = useState(searchFilter.releaseYear);
 
   useEffect(() => {
    http.get(BASE_SERVICE_URL+"genre/movie/list")
     .then(response=>setGenres(response.data.genres));
   }, []);
+  totalCount=totalCount > 10000 ? 10000 : totalCount; //i did hardcoded because API giving error -: page is allowed from 1 to 500 (means max 10000 records)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -62,7 +63,6 @@ export const ImageGridComponent = ({
   const onSearchButtonClick=(e)=> {
     e.preventDefault();
     console.log("onSearchButtonClick updateFilter"+updatedFilter.sort_by);
-    updatedFilter.releaseYear=releaseYear;
     updatedFilter.currentPage=1;
     dispatch(updateFilters(updatedFilter));
   }
@@ -79,19 +79,22 @@ export const ImageGridComponent = ({
             <CustomMultiCheckBox filterName={"genres"} label={"Genres"}
                                  checkboxKeyValues={genres} searchFilter={updatedFilter}/>
             <FormLabel></FormLabel>
-            <FormGroup as={Row} className="mb-3" controlId="formPlaintextEmail">
+            <FormGroup as={Row} controlId="formPlaintextEmail">
             <FormLabel column sm="6">Search By keyword</FormLabel>
-            <Col sm="6">
+            <Col sm="6" >
               <SearchFilterDropdown label={"search keyword"} filterName={"keyword"} searchFilter={updatedFilter}/>
             </Col>
           </FormGroup>
             <FormLabel></FormLabel>
-            <FormGroup as={Row} className="mb-3" controlId="formPlaintextEmail">
-              <FormLabel column sm="4">Release Year</FormLabel>
-              <Col sm="8">
-              <FormControl type={"text"} key={"releaseYear"} onChange={(e)=>setReleaseYear(e.target.value)} value={releaseYear}/>
+            {/*<FormGroup as={Row}  controlId="formPlaintextEmail">
+              <FormLabel column sm="5">Release Year</FormLabel>
+              <Col sm="6">
+              <FormControl type={"text"} className="mb-sm-5" key={"releaseYear"} onChange={(e)=>setReleaseYear(e.target.value)} value={releaseYear}/>
               </Col>
-            </FormGroup>
+            </FormGroup>*/}
+            <CustomDropDown filterName={"releaseYear"} label={"Release Year"}
+                            dropDownKeyValues={getLast50Years()} searchFilter={updatedFilter}
+            />
             <Button variant="primary" type="submit" onClick={e=>onSearchButtonClick(e)}>
               Search
             </Button>
@@ -101,12 +104,14 @@ export const ImageGridComponent = ({
         <div className="grid-container">
           {moviesGrid}
         </div>
-          <Pagination  className="pagination-bar"
+    <div className="pagination-bar">
+  <Pagination
+      totalCount={totalCount}
+      pageSize={20}
+      searchFilter={searchFilter}
+  />
+</div>
 
-                       totalCount={totalCount}
-                       pageSize={20}
-                       searchFilter={searchFilter}
-          />
         </div>
       </div>
   )
