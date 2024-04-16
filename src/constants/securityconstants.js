@@ -22,6 +22,8 @@ http.interceptors.request.use(request=>requestHandler(request));
 
 http.interceptors.response.use(resp=>responseHandler(resp),error=>errorHandler(error));
 
+
+export const ACCOUNT_ID = 21172441;
 const errorHandler=(error)=> {
 
     let errorResponse = error.response;

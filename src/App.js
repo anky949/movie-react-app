@@ -6,7 +6,7 @@ import {BASE_SERVICE_URL, IMAGE_URL} from "./constants/url";
 import {useEffect, useState} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {MovieComponent} from "./components/movie-page/MovieComponent";
-import {http} from "./constants/securityconstants";
+import {ACCOUNT_ID, http} from "./constants/securityconstants";
 
 function App() {
 
@@ -26,7 +26,7 @@ Please follow steps to use tailwindcss -: https://medium.com/@shivaydv/a-step-by
   const [user,setUser] = useState({});
 
   useEffect(() => {
-    http.get(BASE_SERVICE_URL+"account/"+21172441)
+    http.get(BASE_SERVICE_URL+"account/"+ACCOUNT_ID)
     .then(response => {
       console.log(response.data);
       setUser(response.data);

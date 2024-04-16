@@ -1,6 +1,9 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {http} from "../../constants/securityconstants";
+import {ACCOUNT_ID, http} from "../../constants/securityconstants";
 import {BASE_SERVICE_URL} from "../../constants/url";
+
+
+
 
 export const fetchMovies = createAsyncThunk("",
     async (filter) => {
@@ -19,14 +22,31 @@ export const fetchMovies = createAsyncThunk("",
       console.log("calling API");
       const response = await http.get(BASE_SERVICE_URL+"discover/movie?"+queryParams);
       const apiResponse = await response;
-      return apiResponse.data
+
+      // Retrieve favorite movies for the user
+      const favoriteResponse = await http.get("https://api.themoviedb.org/3/"+"account/"+ACCOUNT_ID+"/favorite/movies");
+
+      // Extract favorite movie IDs
+      const favoriteMovieIds = favoriteResponse.data.results.map(movie => movie.id);
+
+
+      const moviesWithFavoriteStatus = apiResponse.data.results.map(movie => {
+        const isFavorite = favoriteMovieIds.includes(movie.id);
+        return { ...movie, favorite: isFavorite };
+      });
+      //      return apiResponse.data    //instead of returning apiResponse.data,
+      //      I returned apiResponseData with updated results list (moviesWithFavoriteStatus)
+      return {...apiResponse.data,results :moviesWithFavoriteStatus};
     });
+
+
 export const initialState={
   movieList:[],
   isLoading: false,
   error: null,
   totalCount: null,
-  searchFilter:{include_adult:false,include_video:false,currentPage:1,language:"en-US",sort_by:"popularity.desc",genres:[],keyword : null,releaseYear : null}
+  searchFilter:{include_adult:false,include_video:false,currentPage:1,language:"en-US",sort_by:"popularity.desc",genres:[],keyword : null,releaseYear : null},
+  favouriteMovieIds:[]
 }
 
 export const movieListSlice=createSlice({
